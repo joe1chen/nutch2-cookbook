@@ -1,3 +1,4 @@
+name              "nutch21"
 maintainer        "Timo Schmidt"
 description       "Installs Nutch 2.1 on cloudera 4"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
