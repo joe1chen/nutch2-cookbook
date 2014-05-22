@@ -5,7 +5,7 @@ Configures and compiles nutch 2 and installs it in configured cloudera machine.
 
 Cookbooks
 ===========================
-* nutch21 (default) - Installs nutch on cloudera
+* nutch2 (default) - Installs nutch on cloudera
 
 
 How to use
@@ -13,25 +13,23 @@ How to use
 
 Create a role in "roles/nutch.rb":
 
-	name "nutch21"
+	name "nutch"
 	description "Installs nutch 2 with all dependencies on cloudera 3"
 
 	default_attributes(
-	  :java => {
-		 :oracle => {
-		   "accept_oracle_download_terms" => true
-		 },
-		 "remove_deprecated_packages" => false
-	   }
 	)
 
 	override_attributes(
 	  "cloudera" => {
-		"version" => 3,
+		"version" => 4,
 		"installyarn" => false
 	  },
 	  "java" => {
-		"install_flavor" => "oracle"
+	    "install_flavor" => "oracle",
+	    "jdk_version" => "7",
+	    "oracle" => {
+	      "accept_oracle_download_terms" => true
+	    }
 	  },
 	  "ant" => {
 		"install_method" => "source"
@@ -45,7 +43,7 @@ Create a role in "roles/nutch.rb":
 		"recipe[ant]",
 		"recipe[cloudera]",
 		"recipe[cloudera::hbase]",
-		"recipe[nutch21]"
+		"recipe[nutch2]"
 	)
 
 I've used the following Cheffile:
@@ -65,8 +63,8 @@ I've used the following Cheffile:
 	cookbook "hosts"
 	cookbook "openssh"
 	cookbook "openssl"
-	cookbook "cloudera", :git => "git://github.com/timoschmidt/cloudera.git"
-	cookbook "nutch21", :git => "git://github.com/timoschmidt/nutch21-cookbook.git"
+	cookbook "cloudera", :git => "git://github.com/joe1chen/cloudera.git"
+	cookbook "nutch2", :git => "git://github.com/joe1chen/nutch2-cookbook.git"
 
 
 
@@ -96,7 +94,7 @@ Requirements
 Cookbooks
 --------
 java cookbook: https://github.com/opscode-cookbooks/java
-cloudera cookbook: https://github.com/timoschmidt/cloudera (https://github.com/danielpoe/cloudera)
+cloudera cookbook: https://github.com/joe1chen/cloudera (https://github.com/joe1chen/cloudera)
 
 
 Platform
