@@ -1,7 +1,7 @@
 Description
 ===========
 
-Configures and compiles nutch 2.1 and installs it in configured cloudera machine.
+Configures and compiles nutch 2 and installs it in configured cloudera machine.
 
 Cookbooks
 ===========================
@@ -14,7 +14,7 @@ How to use
 Create a role in "roles/nutch.rb":
 
 	name "nutch21"
-	description "Installs nutch 2.1 with all dependencies on cloudera 3"
+	description "Installs nutch 2 with all dependencies on cloudera 3"
 
 	default_attributes(
 	  :java => {

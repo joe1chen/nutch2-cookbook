@@ -11,6 +11,6 @@
     </property>
     <property>
         <name>http.agent.name</name>
-        <value>Nutch 2.1</value>
+        <value>Nutch 2</value>
     </property>
 </configuration>
