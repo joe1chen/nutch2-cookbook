@@ -20,19 +20,14 @@ cookbook_file "/tmp/ivy.xml" do
     mode "0644"
 end
 
-remote_file "/tmp/apache-nutch-2.2.1-src.tar.gz" do
-  source "http://mirrors.ibiblio.org/apache/nutch/2.2.1/apache-nutch-2.2.1-src.tar.gz"
-  notifies :run, "bash[install_nutch]", :immediately
-end
-
 # Extract configure for hbase and compile
 bash "install_nutch" do
   user "root"
   cwd "/tmp"
   code <<-EOH
-    git clone https://github.com/joe1chen/nutch.git
+    git clone #{node["nutch"]["source"]["git"]["url"]}
     cd nutch
-    git checkout 2.x-dev
+    git checkout #{["nutch"]["source"]["git"]["branch"]}
     cp /tmp/nutch-site.xml ./conf/nutch-site.xml
     cp /tmp/gora.properties ./conf/gora.properties
     cp /tmp/ivy.xml ./ivy/ivy.xml
