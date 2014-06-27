@@ -27,7 +27,7 @@ bash "install_nutch" do
   code <<-EOH
     git clone #{node["nutch"]["source"]["git"]["url"]}
     cd nutch
-    git checkout #{["nutch"]["source"]["git"]["branch"]}
+    git checkout #{node["nutch"]["source"]["git"]["branch"]}
     cp /tmp/nutch-site.xml ./conf/nutch-site.xml
     cp /tmp/gora.properties ./conf/gora.properties
     cp /tmp/ivy.xml ./ivy/ivy.xml
