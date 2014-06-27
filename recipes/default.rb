@@ -30,24 +30,19 @@ bash "install_nutch" do
   user "root"
   cwd "/tmp"
   code <<-EOH
-    tar -zxf apache-nutch-2.2.1-src.tar.gz
-    cd apache-nutch-2.2.1
+    git clone https://github.com/joe1chen/nutch.git
+    cd nutch
+    git checkout 2.x-dev
     cp /tmp/nutch-site.xml ./conf/nutch-site.xml
     cp /tmp/gora.properties ./conf/gora.properties
     cp /tmp/ivy.xml ./ivy/ivy.xml
     ant runtime
     #copy to /opt/nutch
-    cp -r /tmp/apache-nutch-2.2.1 /opt/nutch
+    cp -r /tmp/nutch /opt/nutch
     chmod g+s -R /opt/nutch/
     #create log folder
     mkdir -p /opt/nutch/runtime/local/logs/
     chmod 777 /opt/nutch/runtime/local/logs/
-    #symlink nutch binaries in /usr/local/bin
-    ln -s /opt/nutch/runtime/local/bin/nutch /usr/deploy/bin/nutch
-
-    #prepare example
-    mkdir -p /home/vagrant/urls
-    touch /home/vagrant/urls/seed.txt
   EOH
   action :nothing
 end
