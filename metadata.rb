@@ -7,6 +7,7 @@ version           "1.0.0.1"
 depends "cloudera"
 depends "ant"
 depends "java"
+depends "git"
 
 recipe "nutch2", "Installs nutch 2 on cloudera"
 
