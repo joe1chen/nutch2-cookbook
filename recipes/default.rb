@@ -39,7 +39,7 @@ bash "install_nutch" do
     mkdir -p /opt/nutch/runtime/local/logs/
     chmod 777 /opt/nutch/runtime/local/logs/
   EOH
-  action :nothing
+  action :run
 end
 
 package "hadoop-0.20-conf-pseudo" do
