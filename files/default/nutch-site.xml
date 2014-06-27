@@ -4,13 +4,178 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-    <property>
-        <name>storage.data.store.class</name>
-        <value>org.apache.gora.hbase.store.HBaseStore</value>
-        <description>Default class for storing data</description>
-    </property>
-    <property>
-        <name>http.agent.name</name>
-        <value>Nutch 2</value>
-    </property>
+  <!-- Basic -->
+  <property>
+    <name>http.agent.name</name>
+    <value>MyCrawler</value>
+  </property>
+
+  <property>
+    <name>http.robots.agents</name>
+    <value>MyCrawler,*</value>
+    <description>The agent strings we'll look for in robots.txt files,
+    comma-separated, in decreasing order of precedence. You should
+    put the value of http.agent.name as the first agent name, and keep the
+    default * at the end of the list. E.g.: BlurflDev,Blurfl,*
+    </description>
+  </property>
+
+  <property>
+    <name>http.agent.description</name>
+    <value>Crawler for MyWebsite.com</value>
+  </property>
+
+  <property>
+    <name>http.agent.url</name>
+    <value>http://www.mywebsite.com/</value>
+  </property>
+
+  <property>
+    <name>http.agent.email</name>
+    <value>crawler@mywebsite.com</value>
+  </property>
+
+  <!-- Crawl ID -->
+  <property>
+    <name>storage.crawl.id</name>
+    <value>default</value>
+    <description>This value helps differentiate between the datasets that
+    the jobs in the crawl cycle generate and operate on. The value will
+    be input to all the jobs which then will use it as a prefix when
+    accessing to the schemas. The default configuration uses no id to prefix
+    the schemas. The value could also be given as a command line argument
+    to each job.
+    </description>
+  </property>
+
+  <!-- Plugins -->
+  <property>
+    <name>plugin.includes</name>
+    <value>protocol-http|urlfilter-regex|parse-(html|tika)|index-(basic|anchor|more|metadata)|indexer-solr|urlnormalizer-(pass|regex|basic)|scoring-opic</value>
+    <description>Regular expression naming plugin directory names to
+     include.  Any plugin not matching this expression is excluded.
+     In any case you need at least include the nutch-extensionpoints plugin. By
+     default Nutch includes crawling just HTML and plain text via HTTP,
+     and basic indexing and search plugins. In order to use HTTPS please enable
+     protocol-httpclient, but be aware of possible intermittent problems with the
+     underlying commons-httpclient library.
+    </description>
+  </property>
+
+  <!-- Performance -->
+  <property>
+    <name>fetcher.server.delay</name>
+    <value>1.0</value>
+    <description>The number of seconds the fetcher will delay between
+     successive requests to the same server.</description>
+  </property>
+
+  <property>
+    <name>fetcher.server.min.delay</name>
+    <value>1.0</value>
+    <description>The minimum number of seconds the fetcher will delay between
+    successive requests to the same server. This value is applicable ONLY
+    if fetcher.threads.per.host is greater than 1 (i.e. the host blocking
+    is turned off).</description>
+  </property>
+
+  <property>
+    <name>fetcher.queue.depth.multiplier</name>
+    <value>2000</value>
+    <description>(EXPERT)The fetcher buffers the incoming URLs into queues based on the [host|domain|IP]
+      (see param fetcher.queue.mode). The depth of the queue is the number of threads times the value of this parameter.
+      A large value requires more memory but can improve the performance of the fetch when the order of the URLS in the fetch list
+      is not optimal.
+    </description>
+  </property>
+
+  <property>
+    <name>generate.max.count</name>
+    <value>-1</value>
+    <description>The maximum number of urls in a single
+    fetchlist. -1 if unlimited. The urls are counted according
+    to the value of the parameter generator.count.mode.
+    </description>
+  </property>
+
+  <!-- HBase -->
+  <property>
+   <name>storage.data.store.class</name>
+   <value>org.apache.gora.hbase.store.HBaseStore</value>
+   <description>Default class for storing data</description>
+  </property>
+
+  <!-- Metadata Plugin -->
+  <property>
+      <name>index.parse.md</name>
+      <value>description,keywords</value>
+      <description>
+          Comma-separated list of keys to be taken from the parse metadata to generate fields.
+          Can be used e.g. for 'description' or 'keywords' provided that these values are generated
+          by a parser (see parse-metatags plugin)
+      </description>
+  </property>
+
+  <!-- parse-metatags plugin properties -->
+  <property>
+      <name>metatags.names</name>
+      <value>description;keywords</value>
+      <description> Names of the metatags to extract, separated by;.
+          Use '*' to extract all metatags. Prefixes the names with 'metatag.'
+          in the parse-metadata. For instance to index description and keywords,
+          you need to activate the plugin index-metadata and set the value of the
+          parameter 'index.parse.md' to 'metatag.description;metatag.keywords'.
+      </description>
+  </property>
+
+  <!-- Elasticsearch -->
+  <property>
+    <name>elastic.host</name>
+    <value>localhost</value>
+    <description>The hostname to send documents to using TransportClient. Either host
+      and port must be defined or cluster.
+    </description>
+  </property>
+
+  <property>
+    <name>elastic.port</name>
+    <value>9300</value>
+    <description>
+    </description>
+  </property>
+
+  <!--
+  <property>
+    <name>elastic.cluster</name>
+    <value>elasticsearch-cluster-name</value>
+    <description>The cluster name to discover. Either host and port must be defined
+    or cluster.</description>
+  </property>
+  -->
+
+  <property>
+    <name>elastic.index</name>
+    <value>nutch</value>
+    <description>Default index to send documents to.</description>
+  </property>
+
+  <property>
+    <name>elastic.max.bulk.docs</name>
+    <value>250</value>
+    <description>Maximum size of the bulk in number of documents.</description>
+  </property>
+
+  <property>
+    <name>elastic.max.bulk.size</name>
+    <value>2500500</value>
+    <description>Maximum size of the bulk in bytes.</description>
+  </property>
+
+  <!-- Solr -->
+  <property>
+    <name>solr.server.url</name>
+    <value>http://localhost:8983/solr</value>
+    <description>Solr URL</description>
+  </property>
+
 </configuration>
