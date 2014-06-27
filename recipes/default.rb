@@ -1,4 +1,8 @@
-#Installs nutch 2 according to http://wiki.apache.org/nutch/Nutch2Tutorial
+# Installs nutch 2 according to http://wiki.apache.org/nutch/Nutch2Tutorial
+# Customized to install from 2.x source.
+
+# Install git
+include_recipe 'git'
 
 # Prepare config files
 cookbook_file "/tmp/gora.properties" do
