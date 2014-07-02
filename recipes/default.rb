@@ -41,7 +41,3 @@ bash "install_nutch" do
   EOH
   action :run
 end
-
-package "hadoop-0.20-conf-pseudo" do
-   action :install
-end
